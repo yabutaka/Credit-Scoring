@@ -1,0 +1,11 @@
+﻿name,description,upper bound,lower bound
+married,applicant married or not [1/0],1,0
+dependents,"number of dependents [0, 1, 2, 3+]",3,0
+education,Graduate or undergraduate [1/0],1,0
+selfEmployed,Self employed [1/0],1,0
+applicantIncome,Applicant's income ,81000,0
+coapplicantIncome,Coapplicant's income,41667,0
+loanAmount,loan amount (in thousands) ,700,9
+loanAmountTerm,term of loan (in months) ,480,6
+creditHistory,credit history meets guidelines [1/0],1,0
+propertyArea,"Property Area is [rural/semi-urban/urban] [1, 2, 3]",3,1

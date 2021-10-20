@@ -34,6 +34,9 @@ x = x.rename({"Loan_Status": "outcome",
           "Credit_History": "creditHistory",
           "Property_Area": "propertyArea" }, axis='columns')
 
+# drop ID column 
+x = x.drop(['loanID'], axis=1)
+
 # drop gender column 
 x = x.drop(['gender'], axis=1)
 
@@ -56,7 +59,8 @@ x['education'] = x['education'].replace({"Graduate": 1, "Not Graduate": 0})
 x['propertyArea'] = x['propertyArea'].replace({"Rural": 1, "Semiurban": 2, "Urban":3})
 
 # credit history 
-x["creditHistory"].fillna(value ='No', inplace = True)
+x["creditHistory"].fillna(value =0, inplace = True)
+x["creditHistory"] = x["creditHistory"].astype(int)
 
 # dependents
 temp = x["dependents"].replace("3+", "3")
