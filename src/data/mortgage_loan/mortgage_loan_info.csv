@@ -1,0 +1,23 @@
+colName,description,min,max
+accepted,Indicates whether the mortgage application was accepted (successfully originated) with a value of 1 or denied with a value of 0,0.0,1.0
+loanType,"Indicates if loan was; conventional, FHA-insured, VA-guaranteed, or FSA/RHS",1.0,4.0
+propertyType,"Indicates if loan application was for; 1-4 family, manufactured, or multifamily",1.0,2.0
+loanPurpose,"Indicates if loan application was for; home purchase, home improvement, or refinancing",1.0,3.0
+occupancy,"Indicates if application property was; owner-occupied as principal dwelling, not owner-occupied, or not applicable",1.0,3.0
+loanAmount,Size of requested loan in thousands of US dollars,1.0,15983.0
+preapproval," Indicates if; preapproval requested, preapproval not requested, or not applicable",1.0,3.0
+msaMd,Metropolitan Statistical Area/ Metropolitan Division (-1 as missing value),-1.0,408.0
+stateCode,Indicates the US state (-1 as missing value),0.0,52.0
+countyCode,Indicates the county (-1 as missing value),1.0,324.0
+applicantEthnicity,"Ethnicity of applicant indicating; Hispanic or Latino, Not Hispanic or Latino, info not provided, or not applicable",1.0,4.0
+applicantRace,"Race of applicant indicating; American Indian or Alaska Native, Asian, Black or African American, Native Hawaiian or Other Pacific Islander, White, info not provided, or not applicable",1.0,7.0
+applicantSex,"Sex of applicant indicating; male, female, info not provided, or not applicable",1.0,4.0
+applicantIncome,Size of income in thousands of US dollars,1.0,10139.0
+population,Total population in tract,74.0,37097.0
+minorityPopulationPct,Percentage of minority population to total population for tract,0.534,100.0
+ffiecmedianFamilyIncome,FFIEC median family income in dollars for MSA/MD in which the tract is located (adjusted annually by FFIEC),17858.0,125248.0
+tractToMsaMdIncomePct,Percentage of tract median family income compared to MSA/MD median family income,6.234,100.0
+numberOfOwnerOccupiedUnits,"Number of dwellings, including individual condominiums, that are lived in by the owner",4.0,8771.0
+numberOf1To4FamilyUnits,Dwellings that are built to house fewer than 5 families,1.0,13623.0
+lender,The lender that approved or denied the loan,0.0,6507.0
+coApplicant,Indicates whether there is a co-applicant or not,0.0,1.0
