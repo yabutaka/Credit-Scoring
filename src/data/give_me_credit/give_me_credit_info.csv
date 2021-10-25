@@ -3,10 +3,10 @@ SeriousDlqin2yrs,Person experienced 90 days past due delinquency or worse,1.0,0.
 RevolvingUtilizationOfUnsecuredLines,Total balance on credit cards and personal lines of credit except real estate and no installment debt like car loans divided by the sum of credit limits,50708.0,0.0
 age,Age of borrower in years,103.0,0.0
 NumberOfTime30-59DaysPastDueNotWorse,Number of times borrower has been 30-59 days past due but no worse in the last 2 years.,98.0,0.0
-DebtRatio,"Monthly debt payments, alimony,living costs divided by monthy gross income",61106.5,0.0
 MonthlyIncome,Monthly income,3008750.0,0.0
 NumberOfOpenCreditLinesAndLoans,Number of Open loans (installment like car loan or mortgage) and Lines of credit (e.g. credit cards),58.0,0.0
 NumberOfTimes90DaysLate,Number of times borrower has been 90 days or more past due.,98.0,0.0
 NumberRealEstateLoansOrLines,Number of mortgage and real estate loans including home equity lines of credit,54.0,0.0
 NumberOfTime60-89DaysPastDueNotWorse,Number of times borrower has been 60-89 days past due but no worse in the last 2 years.,98.0,0.0
 NumberOfDependents,"Number of dependents in family excluding themselves (spouse, children etc.)",20.0,0.0
+Debt,Monthly debt payments,478450.55915999995,0.0
