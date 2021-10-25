@@ -25,20 +25,21 @@ x = x.rename({"Loan_Status": "outcome",
           "Gender": "gender", 
           "Married": "married",
           "Dependents": "dependents",
-          "Education": "education",
+          "Education": "hasGraduated",
           "Self_Employed": "selfEmployed",
           "ApplicantIncome": "applicantIncome",
           "CoapplicantIncome": "coapplicantIncome",
           "LoanAmount": "loanAmount",
           "Loan_Amount_Term": "loanAmountTerm",
-          "Credit_History": "creditHistory",
-          "Property_Area": "propertyArea" }, axis='columns')
+          "Credit_History": "satisfactoryCreditHistory",
+          "Property_Area": "propertyAreaPopulation" }, axis='columns')
 
 # drop ID column 
 x = x.drop(['loanID'], axis=1)
 
 # drop gender column 
-x = x.drop(['gender'], axis=1)
+x['gender'] = x['gender'].replace({"Male": 1, "Female": 0})
+x["gender"].fillna( value = 0.5, inplace = True)
 
 # dropped loanAmount null
 x = x.dropna(subset=['loanAmount'], how='all')
@@ -53,14 +54,15 @@ x["married"].fillna( value ='No', inplace = True)
 x['married'] = x['married'].replace({"No": 0, "Yes": 1})
 
 # education to binary. (graduate --> 1, not graduated --> 0)
-x['education'] = x['education'].replace({"Graduate": 1, "Not Graduate": 0})
+x['hasGraduated'] = x['hasGraduated'].replace({"Graduate": 1, "Not Graduate": 0})
 
 # propertyArea --> (rural --> 1, semiurban --> 2, urban --> 3)
-x['propertyArea'] = x['propertyArea'].replace({"Rural": 1, "Semiurban": 2, "Urban":3})
+x['propertyAreaPopulation'] = x['propertyAreaPopulation'].replace(
+     {"Rural": 1, "Semiurban": 2, "Urban":3})
 
 # credit history 
-x["creditHistory"].fillna(value =0, inplace = True)
-x["creditHistory"] = x["creditHistory"].astype(int)
+x["satisfactoryCreditHistory"].fillna(value =0, inplace = True)
+x["satisfactoryCreditHistory"] = x["satisfactoryCreditHistory"].astype(int)
 
 # dependents
 temp = x["dependents"].replace("3+", "3")
@@ -68,4 +70,4 @@ median_dependents = temp[temp.notnull()].median()
 temp.fillna(value = median_dependents, inplace = True)
 x["dependents"] = temp.astype(int)
 
-x.to_csv('loan_approval_data.csv', index=False)
+x.to_csv('screening_data.csv', index=False)
