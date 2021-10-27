@@ -34,40 +34,38 @@ x = x.rename({"Loan_Status": "outcome",
           "Credit_History": "satisfactoryCreditHistory",
           "Property_Area": "propertyAreaPopulation" }, axis='columns')
 
-# drop ID column 
-x = x.drop(['loanID'], axis=1)
 
-# drop gender column 
+# missing values of numerical columns with mean 
+x['loanAmount'] = x['loanAmount'].fillna(x['loanAmount'].mean())
+x['loanAmountTerm'] = x['loanAmountTerm'].fillna(x['loanAmountTerm'].mean())
+x['satisfactoryCreditHistory'] = x['satisfactoryCreditHistory'].fillna(x['satisfactoryCreditHistory'].mean())
+
+# missing values of categorical columns with mode
+x['gender'] = x['gender'].fillna(x['gender'].mode()[0])
+x['married'] = x['married'].fillna(x['married'].mode()[0])
+x['dependents'] = x['dependents'].fillna(x['dependents'].mode()[0])
+x['selfEmployed'] = x['selfEmployed'].fillna(x['selfEmployed'].mode()[0])
+
+# categorical cols to numerical
 x['gender'] = x['gender'].replace({"Male": 1, "Female": 0})
-x["gender"].fillna( value = 0.5, inplace = True)
-
-# dropped loanAmount null
-x = x.dropna(subset=['loanAmount'], how='all')
-x = x.dropna(subset=['loanAmountTerm'], how='all')
-
-# selfEmployed
-x["selfEmployed"].fillna( value ='No', inplace = True)
 x['selfEmployed'] = x['selfEmployed'].replace({"No": 0, "Yes": 1})
-
-# married to binary
-x["married"].fillna( value ='No', inplace = True)
 x['married'] = x['married'].replace({"No": 0, "Yes": 1})
-
-# education to binary. (graduate --> 1, not graduated --> 0)
 x['hasGraduated'] = x['hasGraduated'].replace({"Graduate": 1, "Not Graduate": 0})
-
-# propertyArea --> (rural --> 1, semiurban --> 2, urban --> 3)
 x['propertyAreaPopulation'] = x['propertyAreaPopulation'].replace(
      {"Rural": 1, "Semiurban": 2, "Urban":3})
-
-# credit history 
-x["satisfactoryCreditHistory"].fillna(value =0, inplace = True)
 x["satisfactoryCreditHistory"] = x["satisfactoryCreditHistory"].astype(int)
-
-# dependents
 temp = x["dependents"].replace("3+", "3")
-median_dependents = temp[temp.notnull()].median()
-temp.fillna(value = median_dependents, inplace = True)
 x["dependents"] = temp.astype(int)
 
+# add columns
+# np.seterr(divide = 'ignore') 
+x['totalIncome'] = x['applicantIncome'] + x['coapplicantIncome']
+x['applicantIncomeLog'] = np.log(x['applicantIncome'].replace({0:0.1}))
+x['coapplicantIncomeLog'] = np.log(x['coapplicantIncome'].replace({0:0.1}))
+x['loanAmountLog'] = np.log(x['loanAmount'].replace({0:0.1}))
+x['loanAmountTermLog'] = np.log(x['loanAmountTerm'])
+x['totalIncomeLog'] = np.log(x['totalIncome'].replace({0:0.1}))
+
 x.to_csv('screening_data.csv', index=False)
+
+

@@ -1,5 +1,5 @@
 ﻿name,description,upper bound,lower bound
-gender,"[1: male, 0: female, 0.5: other]",1,0
+gender,"[1: male, 0: female]",1,0
 married,applicant married or not [1/0],1,0
 dependents,"number of dependents [0, 1, 2, 3+]",3,0
 hasGraduated,college graduate [1/0],1,0
