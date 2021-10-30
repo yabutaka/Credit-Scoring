@@ -1,4 +1,4 @@
 __pycache__
 .ipynb_checkpoints
 .DS_Store
-./src/data/loandefault/application_data.csv
+.application_data.csv
