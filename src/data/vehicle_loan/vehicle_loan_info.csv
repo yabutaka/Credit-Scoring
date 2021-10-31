@@ -1,0 +1,42 @@
+colName,description,min,max
+loanDefault,Payment default in the first EMI on due date,0,1
+uniqueId,Identifier for customers,417428,671084
+disbursedAmount,Amount of Loan disbursed,13320,990572
+assetCost,Cost of the Asset,37000,1628992
+itv,Loan to Value of the asset,10.03,95.0
+branchId,Branch where the loan was disbursed,1,261
+supplierId,Vehicle Dealer where the loan was disbursed,10524,24803
+manufacturerId,"Vehicle manufacturer(Hero, Honda, TVS etc.)",45,156
+currentPincodeId,Current pincode of the customer,1,7345
+dateOfBirth,Date of birth of the customer,01-01-00,31-12-99
+employmentType,Employment Type of the customer (Salaried/Self Employed),Salaried,Unknown
+disbursaldate,Date of disbursement,01-08-18,31-10-18
+stateId,State of disbursement,1,22
+employeeCodeId,Employee of the organization who logged the disbursement,1,3795
+mobilenoAvlFlag,if Mobile no. was shared by the customer then flagged as 1,1,1
+aadharFlag,if aadhar was shared by the customer then flagged as 1,0,1
+panFlag,if pan was shared by the customer then flagged as 1,0,1
+voteridFlag,if voter  was shared by the customer then flagged as 1,0,1
+drivingFlag,if DL was shared by the customer then flagged as 1,0,1
+passportFlag,if passport was shared by the customer then flagged as 1,0,1
+performCnsScore,Bureau Score,0,890
+performCnsScoreDescription,Bureau score description,A-Very Low Risk,Not Scored: Sufficient History Not Available
+priNoOfAccts,count of total loans taken by the customer at the time of disbursement,0,453
+priActiveAccts,count of active loans taken by the customer at the time of disbursement,0,144
+priOverdueAccts,count of default accounts at the time of disbursement,0,25
+priCurrentBalance,total Principal outstanding amount of the active loans at the time of disbursement,-6678296,96524920
+priSanctionedAmount,total amount that was sanctioned for all the loans at the time of disbursement,0,1000000000
+priDisbursedAmount,total amount that was disbursed for all the loans at the time of disbursement,0,1000000000
+secNoOfAccts,count of total loans taken by the customer at the time of disbursement,0,52
+secActiveAccts,count of active loans taken by the customer at the time of disbursement,0,36
+secOverdueAccts,count of default accounts at the time of disbursement,0,8
+secCurrentBalance,total Principal outstanding amount of the active loans at the time of disbursement,-574647,36032852
+secSanctionedAmount,total amount that was sanctioned for all the loans at the time of disbursement,0,30000000
+secDisbursedAmount,total amount that was disbursed for all the loans at the time of disbursement,0,30000000
+primaryInstalAmt,EMI Amount of the primary loan,0,25642806
+secInstalAmt,EMI Amount of the secondary loan,0,4170901
+newAcctsInLastSixMonths,New loans taken by the customer in last 6 months before the disbursment,0,35
+delinquentAcctsInLastSixMonths,Loans defaulted in the last 6 months,0,20
+averageAcctAge,Average loan tenure,0.0,30.9
+creditHistoryLength,Time since first loan,0.0,39.0
+noOfInquiries,Enquries done by the customer for loans,0,36
