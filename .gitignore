@@ -2,3 +2,4 @@ __pycache__
 .ipynb_checkpoints
 .DS_Store
 .application_data.csv
+cplex_studio1210.linux-x86-64.bin
