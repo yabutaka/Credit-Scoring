@@ -1,12 +1,24 @@
 import pandas as pd
 import re
+import numpy as np
 
-df_train = pd.read_csv("raw/train.csv")
-df_test = pd.read_csv("raw/test.csv")
+df = pd.read_csv("raw/train.csv")
+#df_test = pd.read_csv("raw/test.csv")
 
-df = df_train
+df.columns = pd.Series(df.columns).apply(lambda x: x.lower())
 
-df_train.columns = pd.Series(df_train.columns).apply(lambda x: x.lower())
+## Calculate Age
+
+df['date.of.birth'].max()
+
+df['disbursaldate'].min()
+
+df['age'] = (df['disbursaldate'].apply(lambda x: int("20" + x.split("-")[2])) - 
+df['date.of.birth'].apply(lambda x: int("19" + x.split("-")[2])))
+
+df = df.drop(['disbursaldate','date.of.birth'],axis=1)
+
+## Unify column name format
 
 def create_camel_case(myString, seperator):
     lst = myString.split(seperator)
@@ -22,11 +34,9 @@ df.columns = pd.Series(df.columns).apply(create_camel_case,
                               seperator = '_').apply(create_camel_case,
                               seperator = '.')
 
-df.columns
-
 df.columns = ['uniqueId', 'disbursedAmount', 'assetCost', 'itv', 'branchId',
-'supplierId', 'manufacturerId', 'currentPincodeId', 'dateOfBirth',
-'employmentType', 'disbursaldate', 'stateId', 'employeeCodeId',
+'supplierId', 'manufacturerId', 'currentPincodeId',
+'employmentType', 'stateId', 'employeeCodeId',
 'mobilenoAvlFlag', 'aadharFlag', 'panFlag', 'voteridFlag',
 'drivingFlag', 'passportFlag', 'performCnsScore',
 'performCnsScoreDescription', 'priNoOfAccts', 'priActiveAccts',
@@ -36,9 +46,9 @@ df.columns = ['uniqueId', 'disbursedAmount', 'assetCost', 'itv', 'branchId',
 'secDisbursedAmount', 'primaryInstalAmt', 'secInstalAmt',
 'newAcctsInLastSixMonths', 'delinquentAcctsInLastSixMonths',
 'averageAcctAge', 'creditHistoryLength', 'noOfInquiries',
-'loanDefault']
+'loanDefault', 'age']
 
-df.isna().sum()
+df.isna().sum()[df.isna().sum() != 0]
 
 df.employmentType.value_counts()        
 
@@ -52,7 +62,7 @@ df.averageAcctAge = df.averageAcctAge.apply(lambda x: float(str(re.search(r'\d+'
 df.creditHistoryLength = df.creditHistoryLength.apply(lambda x: float(str(re.search(r'\d+', x.split(" ")[0]).group()) + 
                         '.' + str(re.search(r'\d+', x.split(" ")[1]).group())))
 
-df
+df.iloc[0]
 
 temp = df.loanDefault
 df = df.drop("loanDefault", axis = 1)
@@ -60,35 +70,42 @@ df.insert(0, 'loanDefault', temp)
 
 df
 
-df.to_csv("vehicle_loan_data.csv", index = False)
+df.columns
 
-df_col = pd.read_csv("raw/data_dictionary.csv")
+## Select right features to use
 
-df_col = df_col.drop("Unnamed: 0", axis = 1)
-
-df_col.insert(0, 'colName', ['uniqueId', 'loanDefault', 'disbursedAmount', 'assetCost', 'itv',
-       'branchId', 'supplierId', 'manufacturerId', 'currentPincodeId',
-       'dateOfBirth', 'employmentType', 'disbursaldate', 'stateId',
-       'employeeCodeId', 'mobilenoAvlFlag', 'aadharFlag', 'panFlag',
+selected_feature = [
+       'loanDefault', 'age', 'disbursedAmount', 'assetCost', 'itv',
+       'employmentType', 'mobilenoAvlFlag', 'aadharFlag', 'panFlag',
        'voteridFlag', 'drivingFlag', 'passportFlag', 'performCnsScore',
-       'performCnsScoreDescription', 'priNoOfAccts', 'priActiveAccts',
+       'priNoOfAccts', 'priActiveAccts',
        'priOverdueAccts', 'priCurrentBalance', 'priSanctionedAmount',
        'priDisbursedAmount', 'secNoOfAccts', 'secActiveAccts',
        'secOverdueAccts', 'secCurrentBalance', 'secSanctionedAmount',
        'secDisbursedAmount', 'primaryInstalAmt', 'secInstalAmt',
        'newAcctsInLastSixMonths', 'delinquentAcctsInLastSixMonths',
-       'averageAcctAge', 'creditHistoryLength', 'noOfInquiries'])
+       'averageAcctAge', 'creditHistoryLength', 'noOfInquiries'
+]
 
-df_col = df_col.drop(["Variable Name", "Unnamed: 2"], axis = 1)
+df = df[selected_feature]
 
-df_col.columns = 'colName', 'description'
+one_hot = pd.get_dummies(df['employmentType'])
+df = df.join(one_hot)
+df = df.drop('employmentType',axis = 1)
 
-df_col = df_col.reindex([1, 0] + list(range(2, 41))).reset_index(drop = True)
+df.columns = ['loanDefault', 'age', 'disbursedAmount', 'assetCost', 'itv',
+       'mobilenoAvlFlag', 'aadharFlag', 'panFlag', 'voteridFlag',
+       'drivingFlag', 'passportFlag', 'performCnsScore', 'priNoOfAccts',
+       'priActiveAccts', 'priOverdueAccts', 'priCurrentBalance',
+       'priSanctionedAmount', 'priDisbursedAmount', 'secNoOfAccts',
+       'secActiveAccts', 'secOverdueAccts', 'secCurrentBalance',
+       'secSanctionedAmount', 'secDisbursedAmount', 'primaryInstalAmt',
+       'secInstalAmt', 'newAcctsInLastSixMonths',
+       'delinquentAcctsInLastSixMonths', 'averageAcctAge',
+       'creditHistoryLength', 'noOfInquiries', 'salaried', 'selfEmployed',
+       'unknownEmploy']
 
-df_col['min'] = df.min().values
-df_col['max'] = df.max().values
+df.iloc[0]
 
-df_col
-
-df_col.to_csv("vehicle_loan_info.csv", index = False)
+df.to_csv("vehicle_loan_data.csv", index = False)
 
