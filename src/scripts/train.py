@@ -1,4 +1,4 @@
-from model import Model
+from src.scripts.model import Model
 from sklearn.linear_model import LogisticRegression
 
 # Set the dataset name
