@@ -1,4 +1,4 @@
 {
-    "dockerhub-id: "yabutaka/dsc180a-hw3",
+    "dockerhub-id: "yabutaka/dsc180a-hw3:latest",
     "build-script": "python run.py"
 }
