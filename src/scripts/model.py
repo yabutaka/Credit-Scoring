@@ -7,19 +7,28 @@ from sklearn.calibration import calibration_curve, CalibrationDisplay
 import tensorflow as tf
 import tensorflow_probability as tfp
 
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 class Model:
-    def __init__(self, dataset_name, test_size=0.2):
+    def __init__(self, dataset_name = None, dataset_path = None, test_size=0.2):
         # Load and split dataset
-        data_df = pd.read_csv("../data/{}/{}_data.csv".format(dataset_name, dataset_name))
-        print("Loaded {} dataset".format(dataset_name))
+        if dataset_path:
+            data_df = pd.read_csv(dataset_path)
+            dataset_name = dataset_path.split("/")[-1][:-4]
+        else:
+            data_df = pd.read_csv("src/data/{}/{}_data.csv".format(dataset_name, dataset_name))
+            
+        logger.info("Loaded {} dataset".format(dataset_name))
         X, y = data_df.iloc[:,1:], data_df.iloc[:,0]
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=test_size)
         
     def train(self, model):
-        print("Training {}...".format(model))
+        logger.info("Training {}...".format(model))
         self.clf = model.fit(self.X_train, self.y_train)
         test_score = self.clf.score(self.X_test, self.y_test)
-        print("Accuracy of the model on test set: {}".format(test_score))
+        logger.info("Accuracy of the model on test set: {}".format(test_score))
     
     def plot_clf(self, num_bins=10):
         # Plot AUC curves

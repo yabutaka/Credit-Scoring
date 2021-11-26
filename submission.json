@@ -1,0 +1,4 @@
+{
+    "dockerhub-id: "yabutaka/dsc180a-hw3",
+    "build-script": "python run.py"
+}
